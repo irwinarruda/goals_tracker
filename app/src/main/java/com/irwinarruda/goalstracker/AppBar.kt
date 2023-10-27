@@ -10,7 +10,8 @@ import com.irwinarruda.goalstracker.databinding.AppBarBinding
 class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
     private val binding = AppBarBinding.inflate(LayoutInflater.from(context), this, true)
-    private lateinit var title: String;
+    private var title: String? = null;
+    private var coins: Int? = null;
 
     init {
         setLayout(attrs)
@@ -20,11 +21,13 @@ class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, d
     }
 
     fun setCoins(coins: Int) {
-        binding.appbarCoinText.text = "${coins} coins"
+        binding.appbarCoinText.text = "$coins ${R.string.coin_prefix}"
+        this.coins = coins
     }
 
     fun setTitle(title: String) {
         binding.appbarCoinText.text = title
+        this.title = title
     }
 
     private fun setLayout(attrs: AttributeSet?) {
