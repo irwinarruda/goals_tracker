@@ -1,9 +1,7 @@
 package com.irwinarruda.goalstracker
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
-import com.irwinarruda.goalstracker.R
+import androidx.appcompat.app.AppCompatActivity
 import com.irwinarruda.goalstracker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,5 +10,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.appbar!!.onCoins {
+            println("Clicked on coins")
+        }
     }
 }

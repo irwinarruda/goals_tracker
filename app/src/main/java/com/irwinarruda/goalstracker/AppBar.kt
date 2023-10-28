@@ -3,7 +3,7 @@ package com.irwinarruda.goalstracker
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.Toast
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.irwinarruda.goalstracker.databinding.AppBarBinding
 
@@ -15,13 +15,14 @@ class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, d
 
     init {
         setLayout(attrs)
-        binding.appbarCoin.setOnClickListener {
-            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
-        }
+    }
+
+    fun onCoins(cb: (view: View) -> Unit) {
+        binding.appbarCoin.setOnClickListener(cb)
     }
 
     fun setCoins(coins: Int) {
-        binding.appbarCoinText.text = "$coins ${R.string.coin_prefix}"
+        binding.appbarCoinText.text = "$coins ${context.getString(R.string.coin_prefix)}"
         this.coins = coins
     }
 
@@ -34,13 +35,15 @@ class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, d
         attrs?.let { attributeSet ->
             val attributes = context.obtainStyledAttributes(attributeSet, R.styleable.AppBar)
             val attrTitle = attributes.getString(R.styleable.AppBar_title);
-            if (attrTitle != null) {
-                setTitle(attrTitle)
-            }
+            setTitle(attrTitle ?: "")
             val attrCoins = attributes.getInt(R.styleable.AppBar_coins, -1);
-            if (attrCoins != -1) {
-                setCoins(attrCoins)
-            }
+            setCoins(
+                if (attrCoins != -1) {
+                    attrCoins
+                } else {
+                    0
+                }
+            )
             attributes.recycle()
         }
     }
