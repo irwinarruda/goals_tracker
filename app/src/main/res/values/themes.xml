@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.GoalsTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -8,5 +8,6 @@
         <item name="colorAccent">@color/secondary</item>
     </style>
 
-    <style name="Theme.GoalsTracker" parent="Base.Theme.GoalsTracker" />
+    <style name="Theme.GoalsTracker" parent="Base.Theme.GoalsTracker">
+    </style>
 </resources>

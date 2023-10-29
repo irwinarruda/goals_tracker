@@ -17,7 +17,7 @@ class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, d
         setLayout(attrs)
     }
 
-    fun onCoins(cb: (view: View) -> Unit) {
+    fun setOnClickCoins(cb: (view: View) -> Unit) {
         binding.appbarCoin.setOnClickListener(cb)
     }
 

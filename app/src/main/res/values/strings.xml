@@ -3,4 +3,6 @@
     <string name="app_logo_alt">Goals Tracker Logo</string>
     <string name="coin_icon_alt">Coin Icon</string>
     <string name="coin_prefix">coins</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

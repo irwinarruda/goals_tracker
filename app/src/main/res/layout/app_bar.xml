@@ -17,7 +17,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/goal_tracker_logo"
+            android:src="@drawable/ic_goal_tracker_logo"
             android:contentDescription="@string/app_logo_alt" />
     <TextView
             android:id="@+id/appbar_title"
@@ -33,6 +33,8 @@
             tools:ignore="RtlSymmetry" />
     <LinearLayout
             android:id="@+id/appbar_coin"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -46,7 +48,7 @@
         <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/coin"
+                android:src="@drawable/ic_coin"
                 android:contentDescription="@string/coin_icon_alt" />
         <View android:layout_width="4dp" android:layout_height="match_parent" />
         <TextView

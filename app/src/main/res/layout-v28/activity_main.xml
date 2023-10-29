@@ -7,16 +7,16 @@
         android:layout_height="match_parent"
         tools:context="com.irwinarruda.goalstracker.MainActivity">
     <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary"
-        app:title="Goals Tracker"
-        app:titleTextColor="@color/text_heading"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:logo="@drawable/goal_tracker_logo"
-        tools:ignore="MissingConstraints" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            app:title="Goals Tracker"
+            app:titleTextColor="@color/text_heading"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:logo="@drawable/ic_goal_tracker_logo"
+            tools:ignore="MissingConstraints" />
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,23 +26,23 @@
             android:paddingHorizontal="12dp"
             tools:ignore="MissingConstraints">
         <ImageView
-            android:id="@+id/appbar_logo"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/goal_tracker_logo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+                android:id="@+id/appbar_logo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_goal_tracker_logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_heading"
-            android:text="Goals Tracker"
-            android:textSize="24sp"
-            android:textFontWeight="600"
-            app:layout_constraintLeft_toRightOf="@+id/appbar_logo"
-            app:layout_constraintTop_toTopOf="@+id/appbar_logo"
-            app:layout_constraintBottom_toBottomOf="@+id/appbar_logo"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_heading"
+                android:text="Goals Tracker"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                app:layout_constraintLeft_toRightOf="@+id/appbar_logo"
+                app:layout_constraintTop_toTopOf="@+id/appbar_logo"
+                app:layout_constraintBottom_toBottomOf="@+id/appbar_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
             android:layout_width="wrap_content"
