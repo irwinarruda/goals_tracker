@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     <LinearLayout
-            android:id="@+id/icon_button_container"
+            android:id="@+id/iconButton_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clickable="true"
@@ -28,8 +29,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         <ImageView
+                android:id="@+id/iconButton_icon"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_change" />
+                android:layout_height="20dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

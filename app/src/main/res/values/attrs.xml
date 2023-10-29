@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="AppBar">
-        <attr name="title" format="string" />
-        <attr name="coins" format="integer" />
+        <attr name="appBar_title" format="string" />
+        <attr name="appBar_coins" format="integer" />
     </declare-styleable>
     <declare-styleable name="IconButton">
+        <attr name="iconButton_icon" format="string" />
+        <attr name="iconButton_iconSize" format="dimension" />
+        <attr name="iconButton_contentDescription" format="string" />
     </declare-styleable>
 </resources>

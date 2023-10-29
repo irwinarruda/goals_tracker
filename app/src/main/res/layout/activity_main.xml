@@ -5,8 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.irwinarruda.goalstracker.MainActivity">
-    <com.irwinarruda.goalstracker.AppBar
+        tools:context="com.irwinarruda.goalstracker.screens.MainActivity">
+    <com.irwinarruda.goalstracker.components.AppBar
             android:id="@+id/appbar"
             android:layout_width="0dp"
             android:layout_height="68dp"
@@ -14,18 +14,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:title="Hello World"
-            app:coins="20" />
+            app:appBar_title="Hello World"
+            app:appBar_coins="20" />
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="3dp"
             android:background="@color/primary"
-            app:tabTextColor="@color/white"
+            app:tabTextColor="@color/text_heading"
             app:tabTextAppearance="@style/mainTabText"
             app:tabRippleColor="@color/white"
-            app:tabUnboundedRipple="true"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorColor="@color/white"
             app:tabMode="fixed"

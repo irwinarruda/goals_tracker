@@ -13,13 +13,7 @@
             android:theme="@style/Theme.GoalsTracker"
             tools:targetApi="31">
         <activity
-                android:name=".TrackerScreen"
-                android:exported="false" />
-        <activity
-                android:name=".tracker_screen"
-                android:exported="false" />
-        <activity
-                android:name=".MainActivity"
+                android:name=".screens.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
