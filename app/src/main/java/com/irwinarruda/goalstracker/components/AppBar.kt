@@ -22,14 +22,14 @@ class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, d
         binding.appBarCoin.setOnClickListener(cb)
     }
 
-    fun setCoins(coins: Int) {
-        binding.appBarCoinText.text = "$coins ${context.getString(R.string.coin_prefix)}"
-        this.coins = coins
+    fun setCoins(newCoins: Int) {
+        binding.appBarCoinText.text = "$newCoins ${context.getString(R.string.coin_prefix)}"
+        coins = newCoins
     }
 
-    fun setTitle(title: String) {
-        binding.appBarCoinText.text = title
-        this.title = title
+    fun setTitle(newTitle: String) {
+        binding.appBarCoinText.text = newTitle
+        title = newTitle
     }
 
     private fun setLayout(attrs: AttributeSet?) {

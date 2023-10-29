@@ -16,7 +16,9 @@
             android:textColor="@color/text_heading"
             android:textSize="16sp"
             android:gravity="center_vertical"
-            android:text="Manter calorias diárias abaixo"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Manter calorias diárias abaixo de sei lá o que aqui em ta bom?"
             android:fontFamily="@font/roboto_medium"
             android:background="@drawable/rounded_primary_light"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +34,63 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:iconButton_icon="@drawable/ic_change"
-            app:iconButton_iconSize="20dp"
-    />
+            app:iconButton_iconSize="24dp" />
+    <GridLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:columnCount="5"
+            app:layout_constraintTop_toBottomOf="@+id/button_changeGoal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    >
+
+        <com.irwinarruda.goalstracker.components.DayButton
+                android:layout_column="0"
+                android:layout_row="0"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                app:dayButton_count="1"
+                app:dayButton_day="Segunda"
+        />
+        <com.irwinarruda.goalstracker.components.DayButton
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                app:dayButton_count="2"
+                app:dayButton_day="Terça"
+        />
+        <com.irwinarruda.goalstracker.components.DayButton
+                android:layout_column="2"
+                android:layout_row="0"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                app:dayButton_count="3"
+                app:dayButton_day="Quarta"
+        />
+        <com.irwinarruda.goalstracker.components.DayButton
+                android:layout_column="3"
+                android:layout_row="0"
+                android:layout_gravity="fill"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                app:dayButton_count="4"
+                app:dayButton_day="Quinta"
+        />
+        <com.irwinarruda.goalstracker.components.DayButton
+                android:layout_column="4"
+                android:layout_gravity="fill"
+                android:layout_row="0"
+                android:layout_columnWeight="1"
+                android:gravity="center_horizontal"
+                app:dayButton_count="5"
+                app:dayButton_day="Sexta"
+        />
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

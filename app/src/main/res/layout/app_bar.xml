@@ -55,7 +55,7 @@
                 android:id="@+id/appBar_coin_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gold"
+                android:textColor="@color/gold_500"
                 android:fontFamily="@font/roboto_medium" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
