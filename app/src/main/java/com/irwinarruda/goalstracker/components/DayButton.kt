@@ -4,30 +4,36 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import androidx.lifecycle.*
 import com.irwinarruda.goalstracker.R
 import com.irwinarruda.goalstracker.databinding.DayButtonBinding
+import com.irwinarruda.goalstracker.entities.DayState
 
-class DayButton @JvmOverloads constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
+class DayButton @JvmOverloads constructor(
+    private val context: Context,
+    private val attrs: AttributeSet?,
+    defStyleAttr: Int = 0
+) :
     RelativeLayout(context, attrs, defStyleAttr) {
+    private val dayButtonViewModel by lazy {
+        ViewModelProvider(findViewTreeViewModelStoreOwner()!!).get<DayButtonViewModel>()
+    }
+
     private val binding = DayButtonBinding.inflate(LayoutInflater.from(context), this, true)
-    private var count = 0
-    private var day = ""
+
+    private val lifecycleOwner: LifecycleOwner
+        get() {
+            return findViewTreeLifecycleOwner()!!
+        }
 
     init {
-        setLayout(attrs)
     }
 
-    private fun setCount(newCount: Int) {
-        binding.dayButtonCount.text = newCount.toString()
-        count = newCount
-    }
+    fun setDayState(newDayState: DayState) = dayButtonViewModel.setDayState(newDayState)
+    fun setDay(newDay: String) = dayButtonViewModel.setDay(newDay)
+    fun setCount(newCount: Int) = dayButtonViewModel.setCount(newCount)
 
-    private fun setDay(newDay: String) {
-        binding.dayButtonDay.text = newDay
-        day = newDay
-    }
-
-    private fun setLayout(attrs: AttributeSet?) {
+    private fun startLayout() {
         attrs?.let { attributeSet ->
             val attributes = context.obtainStyledAttributes(attributeSet, R.styleable.DayButton)
 
@@ -41,11 +47,19 @@ class DayButton @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         }
     }
 
-    enum class DayButtonState {
-        DISABLED,
-        PENDING,
-        SUCCESS,
-        FAIL,
-        GOLD
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        dayButtonViewModel.dayButton.observe(findViewTreeLifecycleOwner()!!) {
+        }
+
+        dayButtonViewModel.day.observe(findViewTreeLifecycleOwner()!!) {
+            binding.dayButtonDay.text = it
+        }
+
+        dayButtonViewModel.count.observe(findViewTreeLifecycleOwner()!!) {
+            binding.dayButtonCount.text = it.toString()
+        }
+
+        startLayout()
     }
 }
