@@ -5,7 +5,7 @@
         <attr name="appBar_coins" format="integer" />
     </declare-styleable>
     <declare-styleable name="IconButton">
-        <attr name="iconButton_icon" format="string" />
+        <attr name="iconButton_icon" format="reference" />
         <attr name="iconButton_iconSize" format="dimension" />
         <attr name="iconButton_contentDescription" format="string" />
     </declare-styleable>

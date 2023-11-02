@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="60dp"
         android:layout_height="60dp"
 >
     <View
+            android:id="@+id/dayButton_background"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/green_500"
-            android:background="@drawable/card_layer"
+            android:foregroundTint="@color/gray_400"
+            android:background="@drawable/card_layer_disabled"
             android:translationZ="0dp" />
     <LinearLayout
             android:id="@+id/dayButton_container"
@@ -37,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_heading"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
     </LinearLayout>
 </RelativeLayout>

@@ -4,10 +4,9 @@ import com.irwinarruda.goalstracker.R
 import com.irwinarruda.goalstracker.entities.DayState
 
 
-class DayButtonModel(val state: DayState) {
-    var backgroundColor: Int = -1
-    var borderColor: Int? = null
-    var isDisabled: Boolean = false
+class DayButtonModel(private val state: DayState) {
+    var background = -1
+    var isDisabled = false
 
     init {
         setUI()
@@ -16,32 +15,27 @@ class DayButtonModel(val state: DayState) {
     private fun setUI() {
         when (state) {
             DayState.DISABLED -> {
-                backgroundColor = R.color.gray_400
-                borderColor = null
+                background = R.drawable.card_layer_disabled
                 isDisabled = true
             }
 
             DayState.PENDING -> {
-                backgroundColor = R.color.gray_400
-                borderColor = R.color.primary_light
+                background = R.drawable.card_layer_pending
                 isDisabled = false
             }
 
             DayState.SUCCESS -> {
-                backgroundColor = R.color.green_500
-                borderColor = null
+                background = R.drawable.card_layer_success
                 isDisabled = false
             }
 
-            DayState.FAIL -> {
-                backgroundColor = R.color.red_500
-                borderColor = null
+            DayState.ERROR -> {
+                background = R.drawable.card_layer_error
                 isDisabled = false
             }
 
             DayState.GOLD -> {
-                backgroundColor = R.color.green_500
-                borderColor = R.color.gold_500
+                background = R.drawable.card_layer_gold
                 isDisabled = false
             }
         }

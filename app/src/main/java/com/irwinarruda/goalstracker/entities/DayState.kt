@@ -4,6 +4,6 @@ enum class DayState {
     DISABLED,
     PENDING,
     SUCCESS,
-    FAIL,
+    ERROR,
     GOLD
 }

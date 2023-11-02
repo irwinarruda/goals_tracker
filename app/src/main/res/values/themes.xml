@@ -10,4 +10,7 @@
 
     <style name="Theme.GoalsTracker" parent="Base.Theme.GoalsTracker">
     </style>
+    <style name="ThemeCoinsDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

@@ -52,8 +52,8 @@
                 android:layout_gravity="fill"
                 android:layout_columnWeight="1"
                 android:gravity="center_horizontal"
-                app:dayButton_count="1"
                 app:dayButton_day="Segunda"
+                app:dayButton_count="1"
         />
         <com.irwinarruda.goalstracker.components.DayButton
                 android:layout_column="1"
