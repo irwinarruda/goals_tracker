@@ -9,16 +9,19 @@ import com.irwinarruda.goalstracker.databinding.CoinsDialogBinding
 import com.irwinarruda.goalstracker.utils.TabAdapter
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var dialog: AlertDialog
     private lateinit var binding: ActivityMainBinding
+    private lateinit var coinsDialogBinding: CoinsDialogBinding
+    private var dialog: AlertDialog? = null
 
     private fun onClickCoins() {
-        val build = AlertDialog.Builder(this, R.style.ThemeCoinsDialog)
-        val view = CoinsDialogBinding.inflate(layoutInflater, null, false)
-        build.setView(view.root)
-        view.dialogButtonClose.setOnClickListener { dialog.dismiss() }
-        dialog = build.create()
-        dialog.show()
+        if (dialog == null) {
+            val build = AlertDialog.Builder(this, R.style.ThemeCoinsDialog)
+            coinsDialogBinding = CoinsDialogBinding.inflate(layoutInflater, null, false)
+            build.setView(coinsDialogBinding.root)
+            dialog = build.create()
+            coinsDialogBinding.dialogButtonClose.setOnClickListener { dialog!!.dismiss() }
+        }
+        dialog!!.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

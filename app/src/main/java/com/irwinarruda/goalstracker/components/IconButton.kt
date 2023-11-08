@@ -16,8 +16,12 @@ class IconButton @JvmOverloads constructor(context: Context, attrs: AttributeSet
         setLayout(attrs)
     }
 
+    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
+        return LayoutParams(context, attrs)
+    }
+
     override fun setOnClickListener(cb: OnClickListener?) {
-        binding.iconButtonContainer.setOnClickListener(cb)
+        binding.root.setOnClickListener(cb)
     }
 
     private fun setIcon(icon: Drawable) {

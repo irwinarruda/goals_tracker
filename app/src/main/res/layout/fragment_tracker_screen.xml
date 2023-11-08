@@ -20,7 +20,7 @@
             android:maxLines="1"
             android:text="Manter calorias diárias abaixo de sei lá o que aqui em ta bom?"
             android:fontFamily="@font/roboto_medium"
-            android:background="@drawable/rounded_primary_light"
+            android:background="@drawable/heading_layer"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_changeGoal" />

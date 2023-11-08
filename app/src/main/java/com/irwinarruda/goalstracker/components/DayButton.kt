@@ -37,9 +37,9 @@ class DayButton @JvmOverloads constructor(
         super.onAttachedToWindow()
 
         dayButtonViewModel.dayButton.observe(findViewTreeLifecycleOwner()!!) {
-            binding.dayButtonBackground.setBackgroundResource(it.background)
-            binding.dayButtonContainer.isClickable = !it.isDisabled
-            binding.dayButtonContainer.isFocusable = !it.isDisabled
+            binding.root.setBackgroundResource(it.background)
+            binding.root.isClickable = !it.isDisabled
+            binding.root.isFocusable = !it.isDisabled
         }
 
         dayButtonViewModel.day.observe(findViewTreeLifecycleOwner()!!) {

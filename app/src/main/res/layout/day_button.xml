@@ -4,26 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/card_layer_disabled"
 >
-    <View
-            android:id="@+id/dayButton_background"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:foregroundTint="@color/gray_400"
-            android:background="@drawable/card_layer_disabled"
-            android:translationZ="0dp" />
     <LinearLayout
             android:id="@+id/dayButton_container"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/card_ripple"
-            android:translationZ="20dp"
             android:gravity="center"
             android:orientation="vertical"
     >
