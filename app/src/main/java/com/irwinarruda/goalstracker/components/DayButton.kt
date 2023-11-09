@@ -17,14 +17,12 @@ class DayButton @JvmOverloads constructor(
     RelativeLayout(context, attrs, defStyleAttr) {
     private var dayButtonViewModel: DayButtonViewModel = DayButtonViewModel()
     private var binding = DayButtonBinding.inflate(LayoutInflater.from(context), this, true)
-    private var attrDay = ""
-    private var attrCount = -1
 
     init {
         attrs?.let { attributeSet ->
             val styledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.DayButton)
-            attrDay = styledAttributes.getString(R.styleable.DayButton_dayButton_day) ?: ""
-            attrCount = styledAttributes.getInt(R.styleable.DayButton_dayButton_count, 0)
+            dayButtonViewModel.setDay(styledAttributes.getString(R.styleable.DayButton_dayButton_day) ?: "")
+            dayButtonViewModel.setCount(styledAttributes.getInt(R.styleable.DayButton_dayButton_count, 0))
             styledAttributes.recycle()
         }
     }
@@ -49,9 +47,5 @@ class DayButton @JvmOverloads constructor(
         dayButtonViewModel.count.observe(findViewTreeLifecycleOwner()!!) {
             binding.dayButtonCount.text = it.toString()
         }
-
-        setCount(attrCount)
-        setDay(attrDay)
-        setDayState(DayState.DISABLED)
     }
 }

@@ -14,15 +14,24 @@ class DayButtonViewModel : ViewModel() {
 
     private val _count = MutableLiveData<Int>(-1)
     val count: LiveData<Int> = _count
-    fun setDayState(newDayState: DayState) {
-        _dayButton.value = DayButtonModel(newDayState)
+    fun setDayState(newDayState: DayState? = null) {
+        if (newDayState == null) {
+            _dayButton.value = _dayButton.value!!
+        }
+        _dayButton.value = DayButtonModel(newDayState!!)
     }
 
-    fun setDay(newDay: String) {
-        _day.value = newDay
+    fun setDay(newDay: String? = null) {
+        if (newDay == null) {
+            _day.value = _day.value
+        }
+        _day.value = newDay!!
     }
 
-    fun setCount(newCount: Int) {
-        _count.value = newCount
+    fun setCount(newCount: Int? = null) {
+        if (newCount == null) {
+            _count.value = _count.value
+        }
+        _count.value = newCount!!
     }
 }

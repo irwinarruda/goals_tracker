@@ -13,4 +13,10 @@
         <attr name="dayButton_count" format="integer" />
         <attr name="dayButton_day" format="string" />
     </declare-styleable>
+    <declare-styleable name="GoalSelectable">
+        <attr name="goalSelectable_title" format="string" />
+        <attr name="goalSelectable_duration" format="integer" />
+        <attr name="goalSelectable_date" format="string" />
+        <attr name="goalSelectable_coins" format="integer" />
+    </declare-styleable>
 </resources>

@@ -8,7 +8,8 @@
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="10dp"
-        android:background="@drawable/modal_layer">
+        android:background="@drawable/modal_layer"
+>
     <TextView
             android:id="@+id/modal_title"
             android:layout_width="0dp"
@@ -16,7 +17,7 @@
             android:paddingHorizontal="16dp"
             android:layout_marginEnd="10dp"
             android:textColor="@color/text_heading"
-            android:textSize="20sp"
+            android:textSize="18dp"
             android:gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="1"
@@ -38,11 +39,27 @@
             app:iconButton_icon="@drawable/ic_x"
             app:iconButton_iconSize="24dp" />
 
-    <com.irwinarruda.goalstracker.components.GoalSelectable
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World"
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/modal_buttonClose" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/modal_buttonClose"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <com.irwinarruda.goalstracker.components.GoalSelectable
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:goalSelectable_title="Manter calorias diárias abaixo de 700"
+                    app:goalSelectable_duration="30"
+                    app:goalSelectable_date="30/10/2023"
+                    app:goalSelectable_coins="30" />
+            <View android:layout_width="match_parent" android:layout_height="16dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

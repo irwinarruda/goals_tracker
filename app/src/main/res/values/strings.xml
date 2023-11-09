@@ -7,4 +7,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="use_coins">Utilizar coins</string>
     <string name="change_goal">Change goal</string>
+    <string name="goalSelectable_durationTitle">Duração</string>
+    <string name="goalSelectable_dateTitle">Data de início</string>
+    <string name="goalSelectable_coinsTitle">Coins</string>
 </resources>

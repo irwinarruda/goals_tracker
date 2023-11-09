@@ -5,12 +5,83 @@
         android:clickable="true"
         android:focusable="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="12dp"
         android:background="@drawable/goal_layer">
     <TextView
+            android:id="@+id/goalSelectable_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clickable"
+            android:paddingBottom="6dp"
+            android:textSize="14sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
+    <LinearLayout
+            android:id="@+id/goalSelectable_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="start"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintTop_toBottomOf="@+id/goalSelectable_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/goalSelectable_date"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/gray_500"
+                android:text="@string/goalSelectable_durationTitle" />
+        <TextView
+                android:id="@+id/goalSelectable_durationValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" />
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/goalSelectable_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="start"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintTop_toBottomOf="@+id/goalSelectable_title"
+            app:layout_constraintStart_toEndOf="@+id/goalSelectable_duration"
+            app:layout_constraintEnd_toStartOf="@+id/goalSelectable_coins">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/gray_500"
+                android:text="@string/goalSelectable_dateTitle" />
+        <TextView
+                android:id="@+id/goalSelectable_dateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" />
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/goalSelectable_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="start"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintTop_toBottomOf="@+id/goalSelectable_title"
+            app:layout_constraintStart_toEndOf="@+id/goalSelectable_date"
+            app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/gray_500"
+                android:text="@string/goalSelectable_coinsTitle" />
+        <TextView
+                android:id="@+id/goalSelectable_coinsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
