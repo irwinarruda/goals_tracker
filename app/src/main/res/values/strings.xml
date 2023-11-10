@@ -10,4 +10,5 @@
     <string name="goalSelectable_durationTitle">Duração</string>
     <string name="goalSelectable_dateTitle">Data de início</string>
     <string name="goalSelectable_coinsTitle">Coins</string>
+    <string name="add_goal">Adicionar goal</string>
 </resources>

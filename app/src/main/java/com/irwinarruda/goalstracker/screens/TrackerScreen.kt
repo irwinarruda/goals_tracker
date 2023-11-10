@@ -8,19 +8,19 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.irwinarruda.goalstracker.R
 import com.irwinarruda.goalstracker.databinding.FragmentTrackerScreenBinding
-import com.irwinarruda.goalstracker.databinding.GoalsModalBinding
+import com.irwinarruda.goalstracker.databinding.GoalsChangeModalBinding
 
 class TrackerScreen : Fragment(R.layout.fragment_tracker_screen) {
     private lateinit var binding: FragmentTrackerScreenBinding
-    private lateinit var goalsModalBinding: GoalsModalBinding
+    private lateinit var goalsModalBinding: GoalsChangeModalBinding
     private var modal: BottomSheetDialog? = null
 
     private fun onChangeGoalsClick() {
         if (modal == null) {
-            goalsModalBinding = GoalsModalBinding.inflate(layoutInflater, null, false)
+            goalsModalBinding = GoalsChangeModalBinding.inflate(layoutInflater, null, false)
             modal = BottomSheetDialog(requireContext(), R.style.ThemeGoalsModal)
             modal!!.setContentView(goalsModalBinding.root)
-            goalsModalBinding.modalButtonClose.setOnClickListener { modal!!.dismiss() }
+            goalsModalBinding.goalChangeModalButtonClose.setOnClickListener { modal!!.dismiss() }
         }
         modal!!.show()
     }

@@ -8,10 +8,9 @@
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="10dp"
-        android:background="@drawable/modal_layer"
->
+        android:background="@drawable/modal_layer">
     <TextView
-            android:id="@+id/modal_title"
+            android:id="@+id/goalChangeModal_title"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:paddingHorizontal="16dp"
@@ -26,9 +25,9 @@
             android:background="@drawable/heading_layer"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/modal_buttonClose" />
+            app:layout_constraintEnd_toStartOf="@+id/goalChangeModal_buttonClose" />
     <com.irwinarruda.goalstracker.components.IconButton
-            android:id="@+id/modal_buttonClose"
+            android:id="@+id/goalChangeModal_buttonClose"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:padding="0dp"
@@ -45,7 +44,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/modal_buttonClose"
+            app:layout_constraintTop_toBottomOf="@+id/goalChangeModal_buttonClose"
     >
         <LinearLayout
                 android:layout_width="match_parent"

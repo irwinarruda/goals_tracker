@@ -6,10 +6,11 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/secondary</item>
+        <item name="android:colorAccent">@color/secondary</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/roboto</item>
+        <item name="floatingActionButtonStyle">@style/ThemeFloatingActionButton</item>
     </style>
-
     <style name="Theme.GoalsTracker" parent="Base.Theme.GoalsTracker">
     </style>
     <style name="ThemeCoinsDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -17,5 +18,12 @@
     </style>
     <style name="ThemeGoalsModal" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="ThemeFloatingActionButton" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/ThemeFloatingActionButton.Rounded</item>
+    </style>
+    <style name="ThemeFloatingActionButton.Rounded" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
     </style>
 </resources>
