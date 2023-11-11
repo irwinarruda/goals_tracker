@@ -4,10 +4,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:focusable="true"
         android:elevation="20dp"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="16dp"
         android:background="@drawable/modal_layer">
     <TextView
             android:id="@+id/goalCreateModal_title"
@@ -39,10 +42,13 @@
             app:iconButton_iconSize="24dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/firstInput"
+            android:id="@+id/goalCreateModal_inputDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter here"
+            android:layout_marginTop="14dp"
+            android:hint="Description"
+            app:hintTextColor="@color/secondary"
+            app:boxStrokeColor="@color/secondary"
             app:layout_constraintTop_toBottomOf="@+id/goalCreateModal_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -50,21 +56,103 @@
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+            android:id="@+id/goalCreateModal_inputDays"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter here"
-            app:layout_constraintTop_toBottomOf="@+id/firstInput"
+            android:layout_marginTop="12dp"
+            android:hint="Days"
+            app:hintTextColor="@color/secondary"
+            app:boxStrokeColor="@color/secondary"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/goalCreateModal_inputDescription"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/goalCreateModal_inputDate">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+        />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/goalCreateModal_inputDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:hint="Start date"
+            android:enabled="true"
+            app:hintTextColor="@color/secondary"
+            app:boxStrokeColor="@color/secondary"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_calendar"
+            app:endIconTint="@color/black"
+            app:endIconCheckable="true"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintTop_toBottomOf="@+id/goalCreateModal_inputDescription"
+            app:layout_constraintStart_toEndOf="@+id/goalCreateModal_inputDays"
             app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+            android:id="@+id/goalCreateModal_coinContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/goalCreateModal_inputDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        <CheckBox
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:checked="true"
+                android:textColor="@color/black"
+                android:text="Usar coins para completar dias"
+                android:backgroundTint="@color/secondary" />
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/goalCreateModal_inputCoins"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Coins"
+                app:hintTextColor="@color/secondary"
+                app:boxStrokeColor="@color/secondary"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/goalCreateModal_inputDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/goalCreateModal_inputDate">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+            />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Adicionar"
+            android:backgroundTint="@color/secondary"
+            app:cornerRadius="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/goalCreateModal_coinContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
