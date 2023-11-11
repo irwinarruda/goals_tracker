@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -14,30 +11,77 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.irwinarruda.goalstracker.R
 import com.irwinarruda.goalstracker.databinding.FragmentGoalsScreenBinding
 import com.irwinarruda.goalstracker.databinding.GoalCreateModalBinding
-import java.text.SimpleDateFormat
-import java.util.*
+import com.irwinarruda.goalstracker.utils.Alert
+import com.irwinarruda.goalstracker.utils.DateFormat
+import com.irwinarruda.goalstracker.utils.setKeyboardDismiss
 
 class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
     private lateinit var binding: FragmentGoalsScreenBinding
-    private lateinit var goalCreateModalBinding: GoalCreateModalBinding
+    private lateinit var createGoalBinding: GoalCreateModalBinding
     private var modal: BottomSheetDialog? = null
     private var datePicker: MaterialDatePicker<Long>? = null
-    private var dateText = ""
+    private var dateText = 0L
 
-    private fun formatDate(selectedDate: Long): String {
-        // Create a SimpleDateFormat with the desired format
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        // Create a Date object using the selectedDate in milliseconds
-        val date = Date(selectedDate)
-        // Format the date and return the formatted string
-        return simpleDateFormat.format(date)
+    private fun getFormData(): FormData {
+        return FormData(
+            createGoalBinding.goalCreateModalInputDescription.editText!!.text.toString(),
+            createGoalBinding.goalCreateModalInputDays.editText!!.text.toString(),
+            dateText,
+            createGoalBinding.goalCreateModalCheckboxUseCoins.isChecked,
+            createGoalBinding.goalCreateModalInputCoins.editText!!.text.toString()
+        )
     }
 
-    private fun onHideKeyboard(view: View, hasFocus: Boolean): Unit {
-        if (!hasFocus) {
-            val inputMethodManager = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)!!;
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
+    private fun resetFormData() {
+        createGoalBinding.goalCreateModalInputDescription.editText!!.setText("")
+        createGoalBinding.goalCreateModalInputDays.editText!!.setText("")
+        createGoalBinding.goalCreateModalInputDate.editText!!.setText("")
+        dateText = 0
+        createGoalBinding.goalCreateModalInputCoins.editText!!.setText("")
+    }
+
+    private fun createFields() {
+        createGoalBinding.goalCreateModalInputDescription.editText!!.setKeyboardDismiss(requireContext())
+
+        createGoalBinding.goalCreateModalInputDays.editText!!.setKeyboardDismiss(requireContext())
+
+        createGoalBinding.goalCreateModalInputDate.setEndIconOnClickListener { onDatePickerOpen() }
+        createGoalBinding.goalCreateModalInputDate.editText!!.doOnTextChanged { _, _, _, _ ->
+            dateText = 0
         }
+        createGoalBinding.goalCreateModalInputDate.editText!!.setKeyboardDismiss(requireContext())
+
+        createGoalBinding.goalCreateModalCheckboxUseCoins.setOnCheckedChangeListener { _, isChecked ->
+            createGoalBinding.goalCreateModalInputCoins.isEnabled = isChecked
+            createGoalBinding.goalCreateModalInputCoins.editText!!.setText("")
+        }
+        createGoalBinding.goalCreateModalInputCoins.editText!!.setKeyboardDismiss(requireContext())
+    }
+
+    private fun onSubmit() {
+        val data = getFormData()
+        val context = requireContext()
+        if (data.descriptionText == "" || data.descriptionText.length < 3) {
+            Alert.simple(context, "A descrição é obrigatória", "Ok")
+            return
+        }
+        if (data.dayText == "" || data.dayText.toInt() < 0) {
+            Alert.simple(context, "Os dias são obrigatórios e devem ser maior que 0", "Ok")
+            return
+        }
+        if (data.dateText == 0L) {
+            Alert.simple(context, "Data inválida, selecione novamente clicando no calendário", "Ok")
+            return
+        }
+        if (data.shouldUseCoins && (data.coinsText == "" || data.coinsText.toInt() < 0)) {
+            Alert.simple(context, "Digite um valor de coins válido", "Ok")
+            return
+        }
+        Alert.simple(context, "Deu certo")
+    }
+
+    private fun onClose() {
+        resetFormData()
     }
 
     private fun onDatePickerOpen() {
@@ -48,9 +92,9 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
             datePicker!!.addOnPositiveButtonClickListener {
-                val formattedDate = formatDate(it)
-                dateText = formattedDate
-                goalCreateModalBinding.goalCreateModalInputDate.editText!!.setText(formattedDate)
+                val formattedDate = DateFormat.formatDate(it, "dd/MM/yyyy")
+                createGoalBinding.goalCreateModalInputDate.editText!!.setText(formattedDate)
+                dateText = it
             }
         }
         datePicker!!.show(parentFragmentManager, "Date Picker")
@@ -58,40 +102,31 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
 
     private fun onCreateGoalModalOpen() {
         if (modal == null) {
-            goalCreateModalBinding = GoalCreateModalBinding.inflate(layoutInflater, null, false)
-            modal = BottomSheetDialog(requireContext(), R.style.ThemeGoalsModal).apply {
-                window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            }
-            // modal!!.
-            modal!!.setContentView(goalCreateModalBinding.root)
-            goalCreateModalBinding.goalCreateModalButtonClose.setOnClickListener { modal!!.dismiss() }
-            goalCreateModalBinding.goalCreateModalInputDate.setEndIconOnClickListener { onDatePickerOpen() }
-            goalCreateModalBinding.goalCreateModalInputDate.editText!!.doOnTextChanged { _, _, _, _ ->
-                dateText = ""
-            }
-            goalCreateModalBinding.goalCreateModalInputDate.editText!!.setOnFocusChangeListener { v, h ->
-                onHideKeyboard(v, h)
-            }
-            goalCreateModalBinding.goalCreateModalInputDescription.editText!!.setOnFocusChangeListener { v, h ->
-                onHideKeyboard(v, h)
-            }
-            goalCreateModalBinding.goalCreateModalInputCoins.editText!!.setOnFocusChangeListener { v, h ->
-                onHideKeyboard(v, h)
-            }
-            goalCreateModalBinding.goalCreateModalInputDays.editText!!.setOnFocusChangeListener { v, h ->
-                onHideKeyboard(v, h)
-            }
-
+            createGoalBinding = GoalCreateModalBinding.inflate(layoutInflater, null, false)
+            modal = BottomSheetDialog(requireContext(), R.style.ThemeGoalsModal)
+            modal!!.setContentView(createGoalBinding.root)
+            modal!!.setOnDismissListener { onClose() }
+            createGoalBinding.goalCreateModalButtonClose.setOnClickListener { modal!!.dismiss() }
+            createFields()
+            createGoalBinding.goalCreateModalSubmitButton.setOnClickListener { onSubmit() }
         }
-        goalCreateModalBinding.goalCreateModalInputDate.editText!!.setText("DD/MM/YYYY")
+        createGoalBinding.goalCreateModalInputDate.editText!!.setText("DD/MM/YYYY")
         modal!!.show()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentGoalsScreenBinding.inflate(inflater, container, false)
 
         binding.goalsScreenFab.setOnClickListener { onCreateGoalModalOpen() }
         return binding.root
     }
+
+    data class FormData(
+        var descriptionText: String,
+        var dayText: String,
+        var dateText: Long,
+        var shouldUseCoins: Boolean,
+        var coinsText: String,
+    )
 }

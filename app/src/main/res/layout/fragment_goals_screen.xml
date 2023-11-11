@@ -33,7 +33,7 @@
             android:clickable="true"
             android:focusable="true"
             android:backgroundTint="@color/secondary"
-            android:contentDescription="TODO"
+            android:contentDescription="Adicionar goals"
             app:fabCustomSize="64dp"
             app:maxImageSize="50dp"
             app:tint="@color/white"
