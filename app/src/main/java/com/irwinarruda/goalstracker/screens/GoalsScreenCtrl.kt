@@ -2,17 +2,28 @@ package com.irwinarruda.goalstracker.screens
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.irwinarruda.goalstracker.entities.Goal
 import com.irwinarruda.goalstracker.repositories.GoalsRepository
-import java.util.*
 
 class GoalsScreenCtrl(application: Application) : AndroidViewModel(application) {
     private val goalsRepository = GoalsRepository.get(application)
-    fun create() {
-        goalsRepository.create(Goal("Test", 30, Date(), 7))
-    }
+    private val _goalsList = MutableLiveData<MutableList<Goal>>(mutableListOf())
+    val goalsList: LiveData<MutableList<Goal>> = _goalsList
 
     fun list() {
-        goalsRepository.getAll()
+        val goals = goalsRepository.getAll()
+        _goalsList.value = goals
+    }
+
+    fun create(goal: Goal) {
+        goalsRepository.create(goal)
+        list()
+    }
+
+    fun delete(id: Int) {
+        goalsRepository.deleteById(id)
+        list()
     }
 }

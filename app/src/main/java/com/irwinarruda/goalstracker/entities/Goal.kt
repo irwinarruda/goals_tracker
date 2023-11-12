@@ -1,13 +1,23 @@
 package com.irwinarruda.goalstracker.entities
 
-import java.util.*
+import java.time.LocalDate
 
 class Goal(
     val description: String,
     val dayCount: Int,
-    val startDate: Date,
+    val startDate: LocalDate,
     val coins: Int?,
 ) {
-    val id: Int = 0
-    val days: Array<Day> = arrayOf()
+    var id: Int = 0
+    var days: MutableList<Day> = mutableListOf()
+
+    constructor(
+        id: Int,
+        description: String,
+        dayCount: Int,
+        startDate: LocalDate,
+        coins: Int?,
+    ) : this(description, dayCount, startDate, coins) {
+        this.id = id
+    }
 }

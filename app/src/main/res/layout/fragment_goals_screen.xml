@@ -6,24 +6,14 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
         android:paddingTop="18dp">
-    <!--    <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-        />-->
-    <com.irwinarruda.goalstracker.components.GoalItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/goalsScreen_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:goalItem_title="Manter calorias diárias abaixo de 700"
-            app:goalItem_duration="30"
-            app:goalItem_date="30/10/2023"
-            app:goalItem_coins="30" />
+            app:layout_constraintEnd_toEndOf="parent" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/goalsScreen_fab"
             android:layout_width="64dp"

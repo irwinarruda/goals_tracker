@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.irwinarruda.goalstracker.R
+import com.irwinarruda.goalstracker.components.GoalItemAdapter
 import com.irwinarruda.goalstracker.databinding.FragmentGoalsScreenBinding
 import com.irwinarruda.goalstracker.databinding.GoalCreateModalBinding
 import com.irwinarruda.goalstracker.entities.Goal
 import com.irwinarruda.goalstracker.utils.Alert
-import com.irwinarruda.goalstracker.utils.DateFormat
+import com.irwinarruda.goalstracker.utils.formatDate
 import com.irwinarruda.goalstracker.utils.setKeyboardDismiss
-import java.util.*
+import com.irwinarruda.goalstracker.utils.toLocalDate
 
 class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
     private lateinit var binding: FragmentGoalsScreenBinding
@@ -26,22 +28,26 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
     private var datePicker: MaterialDatePicker<Long>? = null
     private var dateText = 0L
 
-    private fun getFormData(): FormData {
-        return FormData(
-            createGoalBinding.goalCreateModalInputDescription.editText!!.text.toString(),
-            createGoalBinding.goalCreateModalInputDays.editText!!.text.toString(),
-            dateText,
-            createGoalBinding.goalCreateModalCheckboxUseCoins.isChecked,
-            createGoalBinding.goalCreateModalInputCoins.editText!!.text.toString()
-        )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentGoalsScreenBinding.inflate(inflater, container, false)
+
+        goalsViewModel = ViewModelProvider(requireActivity())[GoalsScreenCtrl::class.java]
+        binding.goalsScreenFab.setOnClickListener { onCreateGoalModalOpen() }
+        createObservables()
+        goalsViewModel.list()
+        return binding.root
     }
 
-    private fun resetFormData() {
-        createGoalBinding.goalCreateModalInputDescription.editText!!.setText("")
-        createGoalBinding.goalCreateModalInputDays.editText!!.setText("")
-        createGoalBinding.goalCreateModalInputDate.editText!!.setText("")
-        dateText = 0
-        createGoalBinding.goalCreateModalInputCoins.editText!!.setText("")
+    private fun createObservables() {
+        goalsViewModel.goalsList.observe(viewLifecycleOwner) {
+            val goalsScreenList = binding.goalsScreenList
+            goalsScreenList.setHasFixedSize(true)
+            goalsScreenList.layoutManager = LinearLayoutManager(requireContext())
+            goalsScreenList.adapter = GoalItemAdapter(it) { goal ->
+                goalsViewModel.delete(goal.id)
+            }
+        }
     }
 
     private fun createFields() {
@@ -81,12 +87,8 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
             Alert.simple(context, "Digite um valor de coins válido", "Ok")
             return
         }
-        goalsViewModel.create()
+        goalsViewModel.create(data.toGoal())
         Alert.simple(context, "Deu certo")
-    }
-
-    private fun onClose() {
-        resetFormData()
     }
 
     private fun onDatePickerOpen() {
@@ -97,7 +99,7 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
             datePicker!!.addOnPositiveButtonClickListener {
-                val formattedDate = DateFormat.formatDate(it, "dd/MM/yyyy")
+                val formattedDate = it.formatDate("dd/MM/yyyy")
                 createGoalBinding.goalCreateModalInputDate.editText!!.setText(formattedDate)
                 dateText = it
             }
@@ -110,7 +112,7 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
             createGoalBinding = GoalCreateModalBinding.inflate(layoutInflater, null, false)
             modal = BottomSheetDialog(requireContext(), R.style.ThemeGoalsModal)
             modal!!.setContentView(createGoalBinding.root)
-            modal!!.setOnDismissListener { onClose() }
+            modal!!.setOnDismissListener { resetFormData() }
             createGoalBinding.goalCreateModalButtonClose.setOnClickListener { modal!!.dismiss() }
             createFields()
             createGoalBinding.goalCreateModalSubmitButton.setOnClickListener { onSubmit() }
@@ -119,14 +121,23 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
         modal!!.show()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentGoalsScreenBinding.inflate(inflater, container, false)
 
-        goalsViewModel = ViewModelProvider(requireActivity()).get(GoalsScreenCtrl::class.java)
-        binding.goalsScreenFab.setOnClickListener { onCreateGoalModalOpen() }
-        // goalsViewModel.list()
-        return binding.root
+    private fun getFormData(): FormData {
+        return FormData(
+            createGoalBinding.goalCreateModalInputDescription.editText!!.text.toString(),
+            createGoalBinding.goalCreateModalInputDays.editText!!.text.toString(),
+            dateText,
+            createGoalBinding.goalCreateModalCheckboxUseCoins.isChecked,
+            createGoalBinding.goalCreateModalInputCoins.editText!!.text.toString()
+        )
+    }
+
+    private fun resetFormData() {
+        createGoalBinding.goalCreateModalInputDescription.editText!!.setText("")
+        createGoalBinding.goalCreateModalInputDays.editText!!.setText("")
+        createGoalBinding.goalCreateModalInputDate.editText!!.setText("")
+        dateText = 0
+        createGoalBinding.goalCreateModalInputCoins.editText!!.setText("")
     }
 
     data class FormData(
@@ -140,7 +151,7 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
             return Goal(
                 descriptionText,
                 dayText.toInt(),
-                Date(dateText),
+                dateText.toLocalDate(),
                 if (shouldUseCoins) coinsText.toInt() else null
             )
         }

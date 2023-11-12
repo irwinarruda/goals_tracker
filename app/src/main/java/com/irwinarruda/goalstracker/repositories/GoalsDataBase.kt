@@ -24,6 +24,7 @@ class GoalsDataBase(context: Context) :
     object DAYS {
         const val TABLE_NAME = "days"
         const val ID = "id"
+        const val GOAL_ID = "goal_id"
         const val COUNT = "count"
         const val DATE = "date"
         const val STATE = "state"
@@ -45,9 +46,11 @@ class GoalsDataBase(context: Context) :
             """
             CREATE TABLE ${DAYS.TABLE_NAME} (
                 ${DAYS.ID} integer primary key autoincrement,
+                ${DAYS.GOAL_ID} integer not null,
                 ${DAYS.COUNT} integer not null,
                 ${DAYS.DATE} date not null,
-                ${DAYS.STATE} integer not null
+                ${DAYS.STATE} integer not null,
+                FOREIGN KEY (${DAYS.GOAL_ID}) REFERENCES ${GOALS.TABLE_NAME} (${GOALS.ID})
             ); 
             """.trimIndent()
         )

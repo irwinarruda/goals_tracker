@@ -38,6 +38,22 @@ class GoalItem @JvmOverloads constructor(
         }
     }
 
+    fun setTitle(title: String) {
+        binding.goalItemTitle.text = title
+    }
+
+    fun setDuration(duration: Int) {
+        binding.goalItemDurationValue.text = duration.toString()
+    }
+
+    fun setDate(date: String) {
+        binding.goalItemDateValue.text = date
+    }
+
+    fun setCoins(coins: Int) {
+        binding.goalItemCoinsValue.text = coins.toString()
+    }
+
     fun setOnDeleteClick(cb: OnClickListener) {
         onDelete = cb
     }
