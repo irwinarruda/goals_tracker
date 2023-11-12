@@ -6,18 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.irwinarruda.goalstracker.R
 import com.irwinarruda.goalstracker.databinding.FragmentGoalsScreenBinding
 import com.irwinarruda.goalstracker.databinding.GoalCreateModalBinding
+import com.irwinarruda.goalstracker.entities.Goal
 import com.irwinarruda.goalstracker.utils.Alert
 import com.irwinarruda.goalstracker.utils.DateFormat
 import com.irwinarruda.goalstracker.utils.setKeyboardDismiss
+import java.util.*
 
 class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
     private lateinit var binding: FragmentGoalsScreenBinding
     private lateinit var createGoalBinding: GoalCreateModalBinding
+    private lateinit var goalsViewModel: GoalsScreenCtrl
     private var modal: BottomSheetDialog? = null
     private var datePicker: MaterialDatePicker<Long>? = null
     private var dateText = 0L
@@ -77,6 +81,7 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
             Alert.simple(context, "Digite um valor de coins válido", "Ok")
             return
         }
+        goalsViewModel.create()
         Alert.simple(context, "Deu certo")
     }
 
@@ -118,7 +123,9 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentGoalsScreenBinding.inflate(inflater, container, false)
 
+        goalsViewModel = ViewModelProvider(requireActivity()).get(GoalsScreenCtrl::class.java)
         binding.goalsScreenFab.setOnClickListener { onCreateGoalModalOpen() }
+        // goalsViewModel.list()
         return binding.root
     }
 
@@ -128,5 +135,14 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
         var dateText: Long,
         var shouldUseCoins: Boolean,
         var coinsText: String,
-    )
+    ) {
+        fun toGoal(): Goal {
+            return Goal(
+                descriptionText,
+                dayText.toInt(),
+                Date(dateText),
+                if (shouldUseCoins) coinsText.toInt() else null
+            )
+        }
+    }
 }

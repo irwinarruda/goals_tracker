@@ -35,9 +35,9 @@ class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, d
     private fun setLayout(attrs: AttributeSet?) {
         attrs?.let { attributeSet ->
             val attributes = context.obtainStyledAttributes(attributeSet, R.styleable.AppBar)
-            val attrTitle = attributes.getString(R.styleable.AppBar_appBar_title);
+            val attrTitle = attributes.getString(R.styleable.AppBar_appBar_title)
             setTitle(attrTitle ?: "")
-            val attrCoins = attributes.getInt(R.styleable.AppBar_appBar_coins, -1);
+            val attrCoins = attributes.getInt(R.styleable.AppBar_appBar_coins, -1)
             setCoins(
                 if (attrCoins != -1) {
                     attrCoins
