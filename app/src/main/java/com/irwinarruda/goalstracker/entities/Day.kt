@@ -2,9 +2,10 @@ package com.irwinarruda.goalstracker.entities
 
 import java.time.LocalDate
 
-class Day(
-    val id: Int,
-    val count: Int,
-    val date: LocalDate,
-    val state: DayState
+data class Day(
+    var id: Int,
+    var goalId: Int,
+    var count: Int,
+    var date: LocalDate,
+    var state: DayState
 )

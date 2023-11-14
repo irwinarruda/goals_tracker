@@ -3,6 +3,7 @@ package com.irwinarruda.goalstracker.screens
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.irwinarruda.goalstracker.R
 import com.irwinarruda.goalstracker.databinding.ActivityMainBinding
 import com.irwinarruda.goalstracker.databinding.CoinsDialogBinding
@@ -12,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var coinsDialogBinding: CoinsDialogBinding
     private var dialog: AlertDialog? = null
+
+    private lateinit var goalsViewModel: GoalsScreenCtrl
 
     private fun onClickCoins() {
         if (dialog == null) {
@@ -31,5 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding.tabPanel!!.adapter = TabAdapter(this)
         TabAdapter.createLayoutMediator(binding.tabs!!, binding.tabPanel!!)
         binding.appbar!!.setOnClickCoins { onClickCoins() }
+        goalsViewModel = ViewModelProvider(this)[GoalsScreenCtrl::class.java]
+        goalsViewModel.updateDays(1)
     }
 }
