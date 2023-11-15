@@ -11,4 +11,11 @@
     <string name="goalSelectable_dateTitle">Data de início</string>
     <string name="goalSelectable_coinsTitle">Coins</string>
     <string name="add_goal">Adicionar goal</string>
+    <string name="dayOfWeek_monday">Segunda</string>
+    <string name="dayOfWeek_tuesday">Terça</string>
+    <string name="dayOfWeek_wednesday">Quarta</string>
+    <string name="dayOfWeek_thursday">Quinta</string>
+    <string name="dayOfWeek_friday">Sexta</string>
+    <string name="dayOfWeek_saturday">Sabado</string>
+    <string name="dayOfWeek_sunday">Domingo</string>
 </resources>

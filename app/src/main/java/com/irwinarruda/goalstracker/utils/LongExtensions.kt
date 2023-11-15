@@ -15,5 +15,5 @@ fun Long.formatDate(mask: String): String {
 
 fun Long.toLocalDate(): LocalDate {
     val instant = Instant.ofEpochMilli(this)
-    return instant.atZone(ZoneId.systemDefault()).toLocalDate()
+    return instant.atZone(ZoneId.of("UTC")).toLocalDate()
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.irwinarruda.goalstracker.entities.Goal
 import com.irwinarruda.goalstracker.repositories.GoalsRepository
-import java.time.LocalDate
 
 class GoalsScreenCtrl(application: Application) : AndroidViewModel(application) {
     private val goalsRepository = GoalsRepository.get(application)
@@ -14,8 +13,7 @@ class GoalsScreenCtrl(application: Application) : AndroidViewModel(application) 
     val goalsList: LiveData<MutableList<Goal>> = _goalsList
 
     fun list() {
-        val goals = goalsRepository.getAll()
-        val currentDate = LocalDate.now()
+        val goals = goalsRepository.getAll(false)
         _goalsList.value = goals
     }
 

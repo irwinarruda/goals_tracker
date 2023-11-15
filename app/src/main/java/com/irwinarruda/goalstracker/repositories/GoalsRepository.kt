@@ -23,16 +23,16 @@ class GoalsRepository private constructor(context: Context) {
         }
     }
 
-    private fun cursorToGoal(cursor: Cursor): Goal {
+    private fun cursorToGoal(cursor: Cursor, includeDays: Boolean): Goal {
         val id = cursor.getInt(cursor.getColumnIndex(GoalsDataBase.GOALS.ID))
-        return Goal(
-            id,
-            cursor.getString(cursor.getColumnIndex(GoalsDataBase.GOALS.DESCRIPTION)),
-            cursor.getInt(cursor.getColumnIndex(GoalsDataBase.GOALS.DAY_COUNT)),
-            cursor.getLong(cursor.getColumnIndex(GoalsDataBase.GOALS.START_DATE)).toLocalDate(),
-            cursor.getInt(cursor.getColumnIndex(GoalsDataBase.GOALS.COINS)),
-            getDaysByGoalId(id)
-        )
+        val description = cursor.getString(cursor.getColumnIndex(GoalsDataBase.GOALS.DESCRIPTION))
+        val dayCount = cursor.getInt(cursor.getColumnIndex(GoalsDataBase.GOALS.DAY_COUNT))
+        val startDate = cursor.getLong(cursor.getColumnIndex(GoalsDataBase.GOALS.START_DATE)).toLocalDate()
+        val coins = cursor.getInt(cursor.getColumnIndex(GoalsDataBase.GOALS.COINS))
+        if (!includeDays) {
+            return Goal(id, description, dayCount, startDate, coins)
+        }
+        return Goal(id, description, dayCount, startDate, coins, getDaysByGoalId(id))
     }
 
     private fun cursorToDay(cursor: Cursor): Day {
@@ -63,14 +63,16 @@ class GoalsRepository private constructor(context: Context) {
         }
     }
 
-    fun updateDay(day: Day) {
+    fun updatePendingDay(id: Int) {
         val db = database.writableDatabase
-        val contentValues = dayToContentValues(day)
+        val contentValues = ContentValues().apply {
+            put(GoalsDataBase.DAYS.STATE, DayState.SUCCESS.ordinal)
+        }
         db.update(
             GoalsDataBase.DAYS.TABLE_NAME,
             contentValues,
             "${GoalsDataBase.DAYS.ID} = ?",
-            arrayOf(day.id.toString())
+            arrayOf(id.toString())
         )
         db.close()
     }
@@ -123,7 +125,7 @@ class GoalsRepository private constructor(context: Context) {
         return daysList
     }
 
-    fun getAll(): MutableList<Goal> {
+    fun getAll(includeDays: Boolean): MutableList<Goal> {
         try {
             val goals = database.readableDatabase.query(
                 GoalsDataBase.GOALS.TABLE_NAME,
@@ -136,7 +138,7 @@ class GoalsRepository private constructor(context: Context) {
             )
             val goalsList = mutableListOf<Goal>()
             while (goals.moveToNext()) {
-                goalsList.add(cursorToGoal(goals))
+                goalsList.add(cursorToGoal(goals, includeDays))
             }
             goals.close()
             return goalsList

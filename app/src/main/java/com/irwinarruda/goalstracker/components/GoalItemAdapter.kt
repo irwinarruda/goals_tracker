@@ -7,7 +7,7 @@ import com.irwinarruda.goalstracker.entities.Goal
 import com.irwinarruda.goalstracker.utils.formatMask
 
 class GoalItemAdapter(
-    private val goals: MutableList<Goal>,
+    private val goals: List<Goal>,
     private val onDelete: (goal: Goal) -> Unit
 ) : RecyclerView.Adapter<GoalItemAdapter.ViewHolder>() {
 
