@@ -21,7 +21,7 @@
             android:gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/use_coins"
+            android:text="@string/coinsDialog_title"
             android:fontFamily="@font/roboto_medium"
             android:background="@drawable/heading_layer"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +52,7 @@
                 android:layout_height="55dp"
                 android:src="@drawable/ic_coin_filled" />
         <TextView
+                android:id="@+id/dialog_coinsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -65,16 +66,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:text="Você deseja utilizar 10 coin para ter um dia de besteira? Seu saldo final ficará 14 coins "
             android:textColor="@color/text_body"
             app:layout_constraintTop_toBottomOf="@+id/dialog_coins"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     <Button
+            android:id="@+id/dialog_buttonConfirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Confirmar"
+            android:text="@string/coinsDialog_confirm"
             android:backgroundTint="@color/secondary"
             app:cornerRadius="6dp"
             app:layout_constraintTop_toBottomOf="@+id/dialog_description"

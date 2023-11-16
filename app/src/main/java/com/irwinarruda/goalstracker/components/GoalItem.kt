@@ -50,8 +50,9 @@ class GoalItem @JvmOverloads constructor(
         binding.goalItemDateValue.text = date
     }
 
-    fun setCoins(coins: Int) {
-        binding.goalItemCoinsValue.text = coins.toString()
+    fun setCoins(coins: Int?) {
+        if (coins == null) binding.goalItemCoinsValue.text = "--"
+        else binding.goalItemCoinsValue.text = coins.toString()
     }
 
     fun setOnDeleteClick(cb: OnClickListener) {

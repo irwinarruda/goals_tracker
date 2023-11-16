@@ -12,6 +12,7 @@
     <declare-styleable name="DayButton">
         <attr name="dayButton_count" format="integer" />
         <attr name="dayButton_day" format="string" />
+        <attr name="dayButton_date" format="string" />
     </declare-styleable>
     <declare-styleable name="GoalSelectable">
         <attr name="goalSelectable_title" format="string" />

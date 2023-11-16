@@ -1,16 +1,28 @@
 <resources>
     <string name="app_name">Goals Tracker</string>
-    <string name="app_logo_alt">Goals Tracker Logo</string>
-    <string name="coin_icon_alt">Coin Icon</string>
-    <string name="coin_prefix">coins</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="use_coins">Utilizar coins</string>
-    <string name="change_goal">Change goal</string>
+    <string name="appBar_coinsSuffix">moedas</string>
+    <string name="appBar_title">Goals Tracker</string>
+    <string name="appBar_logoDescription">Goals Tracker Logo</string>
+    <string name="appBar_coinDescription">Icone de moeda</string>
+    <string name="tabTitle_tracker">Acompanhar</string>
+    <string name="tabTitle_goals">Metas</string>
+    <string name="coinsDialog_title">Utilizar moedas</string>
+    <string name="coinsDialog_coinsSuffix">Moedas</string>
+    <string name="coinsDialog_description">Você deseja utilizar {1} moedas para ter um dia de besteira? Seu saldo final
+        será {2} moedas.
+    </string>
+    <string name="coinsDialog_confirmError">Não foi possível continuar com a ação.</string>
+    <string name="coinsDialog_confirm">Confirmar</string>
+    <string name="goalChangeModal_title">Mudar meta</string>
     <string name="goalSelectable_durationTitle">Duração</string>
     <string name="goalSelectable_dateTitle">Data de início</string>
     <string name="goalSelectable_coinsTitle">Coins</string>
-    <string name="add_goal">Adicionar goal</string>
+    <string name="goalCreateModal_title">Adicionar meta</string>
+    <string name="goalCreateModal_inputDescription">Descrição</string>
+    <string name="goalCreateModal_inputDays">Dias</string>
+    <string name="goalCreateModal_inputStartDate">Data inicial</string>
+    <string name="goalCreateModal_inputCoins">Moedas</string>
+    <string name="goalCreateModal_checkboxCoins">Usar moedas para completer dias</string>
     <string name="dayOfWeek_monday">Segunda</string>
     <string name="dayOfWeek_tuesday">Terça</string>
     <string name="dayOfWeek_wednesday">Quarta</string>
@@ -18,4 +30,5 @@
     <string name="dayOfWeek_friday">Sexta</string>
     <string name="dayOfWeek_saturday">Sabado</string>
     <string name="dayOfWeek_sunday">Domingo</string>
+    <string name="trackerScreen_notFoundMessage">Crie uma meta para começar a acompanhar seu progresso</string>
 </resources>

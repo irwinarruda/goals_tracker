@@ -8,6 +8,7 @@ import com.irwinarruda.goalstracker.entities.Day
 import com.irwinarruda.goalstracker.entities.DayState
 import com.irwinarruda.goalstracker.utils.Sizes
 import com.irwinarruda.goalstracker.utils.WeekDayFormat
+import com.irwinarruda.goalstracker.utils.formatMask
 
 class DayButtonAdapter(
     private val context: Context,
@@ -35,10 +36,22 @@ class DayButtonAdapter(
 
         dayButton.setCount(day.count + 1)
         dayButton.setDay(WeekDayFormat.dayOfTheWeekToString(context, day.date.dayOfWeek))
-        dayButton.setDayState(day.state)
+        dayButton.setDate(day.date.formatMask("dd/MM"))
         if (day.state == DayState.PENDING) {
             dayButton.setOnCLickListener { onPending(day) }
         }
+    }
+
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        val dayButton = holder.itemView as DayButton
+        if (payloads.isNotEmpty()) {
+            dayButton.setDayState(payloads[0] as DayState)
+            days[position].state = payloads[0] as DayState
+        } else {
+            dayButton.setDayState(days[position].state)
+        }
+        super.onBindViewHolder(holder, position, payloads)
     }
 
     override fun getItemCount() = days.size

@@ -18,8 +18,7 @@
             android:textSize="14sp"
             android:textColor="@color/white"
             android:fontFamily="@font/roboto_medium"
-            android:background="@drawable/heading_layer"
-            android:text="Manter calorias diárias abaixo de 700" />
+            android:background="@drawable/heading_layer" />
     <LinearLayout
             android:id="@+id/goalItem_infoContainer"
             android:visibility="visible"

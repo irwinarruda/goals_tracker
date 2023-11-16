@@ -18,14 +18,14 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/ic_goal_tracker_logo"
-            android:contentDescription="@string/app_logo_alt" />
+            android:contentDescription="@string/appBar_logoDescription" />
     <TextView
             android:id="@+id/appBar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="12dp"
             android:textColor="@color/text_heading"
-            android:text="@string/app_name"
+            android:text="@string/appBar_title"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/appBar_logo"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +40,7 @@
             android:paddingVertical="4dp"
             android:paddingHorizontal="6dp"
             android:gravity="center"
-            android:background="@drawable/light_ripple"
+            android:background="@drawable/use_coins_clickable_layer"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -49,7 +49,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_coin"
-                android:contentDescription="@string/coin_icon_alt" />
+                android:contentDescription="@string/appBar_coinDescription" />
         <View android:layout_width="4dp" android:layout_height="match_parent" />
         <TextView
                 android:id="@+id/appBar_coin_text"

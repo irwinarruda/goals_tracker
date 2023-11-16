@@ -3,6 +3,7 @@ package com.irwinarruda.goalstracker.repositories
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import androidx.core.database.getIntOrNull
 import com.irwinarruda.goalstracker.entities.Day
 import com.irwinarruda.goalstracker.entities.DayState
 import com.irwinarruda.goalstracker.entities.Goal
@@ -28,7 +29,7 @@ class GoalsRepository private constructor(context: Context) {
         val description = cursor.getString(cursor.getColumnIndex(GoalsDataBase.GOALS.DESCRIPTION))
         val dayCount = cursor.getInt(cursor.getColumnIndex(GoalsDataBase.GOALS.DAY_COUNT))
         val startDate = cursor.getLong(cursor.getColumnIndex(GoalsDataBase.GOALS.START_DATE)).toLocalDate()
-        val coins = cursor.getInt(cursor.getColumnIndex(GoalsDataBase.GOALS.COINS))
+        val coins = cursor.getIntOrNull(cursor.getColumnIndex(GoalsDataBase.GOALS.COINS))
         if (!includeDays) {
             return Goal(id, description, dayCount, startDate, coins)
         }
@@ -63,10 +64,10 @@ class GoalsRepository private constructor(context: Context) {
         }
     }
 
-    fun updatePendingDay(id: Int) {
+    fun updateDayState(id: Int, state: DayState) {
         val db = database.writableDatabase
         val contentValues = ContentValues().apply {
-            put(GoalsDataBase.DAYS.STATE, DayState.SUCCESS.ordinal)
+            put(GoalsDataBase.DAYS.STATE, state.ordinal)
         }
         db.update(
             GoalsDataBase.DAYS.TABLE_NAME,
@@ -126,47 +127,37 @@ class GoalsRepository private constructor(context: Context) {
     }
 
     fun getAll(includeDays: Boolean): MutableList<Goal> {
-        try {
-            val goals = database.readableDatabase.query(
-                GoalsDataBase.GOALS.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            )
-            val goalsList = mutableListOf<Goal>()
-            while (goals.moveToNext()) {
-                goalsList.add(cursorToGoal(goals, includeDays))
-            }
-            goals.close()
-            return goalsList
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
+        val goals = database.readableDatabase.query(
+            GoalsDataBase.GOALS.TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+        val goalsList = mutableListOf<Goal>()
+        while (goals.moveToNext()) {
+            goalsList.add(cursorToGoal(goals, includeDays))
         }
+        goals.close()
+        return goalsList
     }
 
     fun create(goal: Goal) {
-        try {
-            val writable = database.writableDatabase
-            writable.beginTransaction()
-            val goalValues = goalToContentValues(goal)
-            val id = writable.insert(GoalsDataBase.GOALS.TABLE_NAME, null, goalValues)
-            for (i in 0 until goal.dayCount) {
-                val dayValues = dayToContentValues(
-                    Day(0, id.toInt(), i, goal.startDate.plusDays(i.toLong()), DayState.DISABLED)
-                )
-                writable.insert(GoalsDataBase.DAYS.TABLE_NAME, null, dayValues)
-            }
-            writable.setTransactionSuccessful()
-            writable.endTransaction()
-            writable.close()
-
-        } catch (e: Exception) {
-            e.printStackTrace()
+        val writable = database.writableDatabase
+        writable.beginTransaction()
+        val goalValues = goalToContentValues(goal)
+        val id = writable.insert(GoalsDataBase.GOALS.TABLE_NAME, null, goalValues)
+        for (i in 0 until goal.dayCount) {
+            val dayValues = dayToContentValues(
+                Day(0, id.toInt(), i, goal.startDate.plusDays(i.toLong()), DayState.DISABLED)
+            )
+            writable.insert(GoalsDataBase.DAYS.TABLE_NAME, null, dayValues)
         }
+        writable.setTransactionSuccessful()
+        writable.endTransaction()
+        writable.close()
     }
 
     fun deleteById(id: Int) {
@@ -182,5 +173,33 @@ class GoalsRepository private constructor(context: Context) {
             arrayOf(id.toString())
         )
         db.close()
+    }
+
+    fun getUserCoins(): Int {
+        val user = database.readableDatabase.query(
+            GoalsDataBase.USERS.TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+        var coins = 0
+        while (user.moveToNext()) {
+            coins = user.getInt(user.getColumnIndex(GoalsDataBase.USERS.COINS))
+        }
+        user.close()
+
+        return coins
+    }
+
+    fun updateUserCoins(coins: Int) {
+        val writable = database.writableDatabase
+        val contentValues = ContentValues().apply {
+            put(GoalsDataBase.USERS.COINS, coins)
+        }
+        writable.insert(GoalsDataBase.USERS.TABLE_NAME, null, contentValues)
+        writable.close()
     }
 }

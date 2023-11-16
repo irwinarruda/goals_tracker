@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.irwinarruda.goalstracker.entities.Goal
+import com.irwinarruda.goalstracker.utils.Sizes
 import com.irwinarruda.goalstracker.utils.formatMask
 
 class GoalItemAdapter(
@@ -26,12 +27,12 @@ class GoalItemAdapter(
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         if (position > 0) {
-            (goalItem.layoutParams as LinearLayout.LayoutParams).topMargin = 50
+            (goalItem.layoutParams as LinearLayout.LayoutParams).topMargin = Sizes.dpToPixels(10)
         }
         goalItem.setTitle(goal.description)
         goalItem.setDuration(goal.dayCount)
         goalItem.setDate(goal.startDate.formatMask("dd/MM/yyyy"))
-        goalItem.setCoins(goal.coins ?: 0)
+        goalItem.setCoins(goal.coins)
         goalItem.setOnDeleteClick {
             onDelete(goal)
         }

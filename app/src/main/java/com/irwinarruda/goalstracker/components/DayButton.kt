@@ -21,6 +21,7 @@ class DayButton @JvmOverloads constructor(
             val styledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.DayButton)
             setDay(styledAttributes.getString(R.styleable.DayButton_dayButton_day) ?: "")
             setCount(styledAttributes.getInt(R.styleable.DayButton_dayButton_count, 0))
+            setDate(styledAttributes.getString(R.styleable.DayButton_dayButton_date) ?: "")
             setDayState(DayState.DISABLED)
             styledAttributes.recycle()
         }
@@ -39,6 +40,10 @@ class DayButton @JvmOverloads constructor(
 
     fun setDay(newDay: String) {
         binding.dayButtonDay.text = newDay
+    }
+
+    fun setDate(newDate: String) {
+        binding.dayButtonDate.text = newDate
     }
 
     fun setCount(newCount: Int) {

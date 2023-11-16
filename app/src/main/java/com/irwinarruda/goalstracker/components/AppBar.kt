@@ -22,8 +22,17 @@ class AppBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?, d
         binding.appBarCoin.setOnClickListener(cb)
     }
 
+    fun setCoinsClickale(clickable: Boolean) {
+        binding.appBarCoin.isEnabled = clickable
+        if (clickable) {
+            binding.appBarCoin.setBackgroundResource(R.drawable.use_coins_clickable_layer)
+        } else {
+            binding.appBarCoin.setBackgroundResource(R.drawable.use_coins_layer)
+        }
+    }
+
     fun setCoins(newCoins: Int) {
-        binding.appBarCoinText.text = "$newCoins ${context.getString(R.string.coin_prefix)}"
+        binding.appBarCoinText.text = "$newCoins ${context.getString(R.string.appBar_coinsSuffix)}"
         coins = newCoins
     }
 

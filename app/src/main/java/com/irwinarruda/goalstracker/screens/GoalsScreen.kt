@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.irwinarruda.goalstracker.R
 import com.irwinarruda.goalstracker.components.GoalItemAdapter
+import com.irwinarruda.goalstracker.controllers.AppCtrl
 import com.irwinarruda.goalstracker.databinding.FragmentGoalsScreenBinding
 import com.irwinarruda.goalstracker.databinding.GoalCreateModalBinding
 import com.irwinarruda.goalstracker.entities.Goal
@@ -23,35 +24,38 @@ import com.irwinarruda.goalstracker.utils.toLocalDate
 class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
     private lateinit var binding: FragmentGoalsScreenBinding
     private lateinit var createGoalBinding: GoalCreateModalBinding
-    private lateinit var goalsViewModel: GoalsScreenCtrl
+    private lateinit var appCtrl: AppCtrl
     private var modal: BottomSheetDialog? = null
     private var datePicker: MaterialDatePicker<Long>? = null
     private var dateText = 0L
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentGoalsScreenBinding.inflate(inflater, container, false)
 
-        goalsViewModel = ViewModelProvider(requireActivity())[GoalsScreenCtrl::class.java]
+        appCtrl = ViewModelProvider(requireActivity())[AppCtrl::class.java]
         binding.goalsScreenFab.setOnClickListener { onCreateGoalModalOpen() }
         createObservables()
-        goalsViewModel.list()
         return binding.root
     }
 
     private fun createObservables() {
-        goalsViewModel.goalsList.observe(viewLifecycleOwner) {
+        appCtrl.goals.observe(viewLifecycleOwner) { goals ->
             val goalsScreenList = binding.goalsScreenList
             goalsScreenList.setHasFixedSize(true)
             goalsScreenList.layoutManager = LinearLayoutManager(requireContext())
-            goalsScreenList.adapter = GoalItemAdapter(it) { goal ->
-                goalsViewModel.delete(goal.id)
-            }
+            goalsScreenList.adapter = GoalItemAdapter(goals) { goal -> appCtrl.delete(goal.id) }
         }
     }
 
     private fun createFields() {
-        createGoalBinding.goalCreateModalInputDescription.editText!!.setKeyboardDismiss(requireContext())
+        createGoalBinding.goalCreateModalInputDescription.editText!!.setKeyboardDismiss(
+                requireContext()
+        )
 
         createGoalBinding.goalCreateModalInputDays.editText!!.setKeyboardDismiss(requireContext())
 
@@ -61,7 +65,8 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
         }
         createGoalBinding.goalCreateModalInputDate.editText!!.setKeyboardDismiss(requireContext())
 
-        createGoalBinding.goalCreateModalCheckboxUseCoins.setOnCheckedChangeListener { _, isChecked ->
+        createGoalBinding.goalCreateModalCheckboxUseCoins.setOnCheckedChangeListener { _, isChecked
+            ->
             createGoalBinding.goalCreateModalInputCoins.isEnabled = isChecked
             createGoalBinding.goalCreateModalInputCoins.editText!!.setText("")
         }
@@ -87,17 +92,17 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
             Alert.simple(context, "Digite um valor de coins válido", "Ok")
             return
         }
-        goalsViewModel.create(data.toGoal())
-        Alert.simple(context, "Deu certo")
+        appCtrl.create(data.toGoal())
+        Alert.simple(context, "Meta criada com sucesso", "Ok")
     }
 
     private fun onDatePickerOpen() {
         if (datePicker == null) {
-            datePicker = MaterialDatePicker.Builder
-                .datePicker()
-                .setTitleText("Selecione a data")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build()
+            datePicker =
+                    MaterialDatePicker.Builder.datePicker()
+                            .setTitleText("Selecione a data")
+                            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                            .build()
             datePicker!!.addOnPositiveButtonClickListener {
                 val formattedDate = it.formatDate("dd/MM/yyyy")
                 createGoalBinding.goalCreateModalInputDate.editText!!.setText(formattedDate)
@@ -121,14 +126,13 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
         modal!!.show()
     }
 
-
     private fun getFormData(): FormData {
         return FormData(
-            createGoalBinding.goalCreateModalInputDescription.editText!!.text.toString(),
-            createGoalBinding.goalCreateModalInputDays.editText!!.text.toString(),
-            dateText,
-            createGoalBinding.goalCreateModalCheckboxUseCoins.isChecked,
-            createGoalBinding.goalCreateModalInputCoins.editText!!.text.toString()
+                createGoalBinding.goalCreateModalInputDescription.editText!!.text.toString(),
+                createGoalBinding.goalCreateModalInputDays.editText!!.text.toString(),
+                dateText,
+                createGoalBinding.goalCreateModalCheckboxUseCoins.isChecked,
+                createGoalBinding.goalCreateModalInputCoins.editText!!.text.toString()
         )
     }
 
@@ -141,18 +145,18 @@ class GoalsScreen : Fragment(R.layout.fragment_goals_screen) {
     }
 
     data class FormData(
-        var descriptionText: String,
-        var dayText: String,
-        var dateText: Long,
-        var shouldUseCoins: Boolean,
-        var coinsText: String,
+            var descriptionText: String,
+            var dayText: String,
+            var dateText: Long,
+            var shouldUseCoins: Boolean,
+            var coinsText: String,
     ) {
         fun toGoal(): Goal {
             return Goal(
-                descriptionText,
-                dayText.toInt(),
-                dateText.toLocalDate(),
-                if (shouldUseCoins) coinsText.toInt() else null
+                    descriptionText,
+                    dayText.toInt(),
+                    dateText.toLocalDate(),
+                    if (shouldUseCoins) coinsText.toInt() else null
             )
         }
     }

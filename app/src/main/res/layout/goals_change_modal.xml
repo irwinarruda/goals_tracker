@@ -20,7 +20,7 @@
             android:gravity="center_vertical"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/change_goal"
+            android:text="@string/goalChangeModal_title"
             android:fontFamily="@font/roboto_medium"
             android:background="@drawable/heading_layer"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,28 +37,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:iconButton_icon="@drawable/ic_x"
             app:iconButton_iconSize="24dp" />
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/goalChangeModal_goalsList"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goalChangeModal_buttonClose"
-    >
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            <com.irwinarruda.goalstracker.components.GoalSelectable
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:goalSelectable_title="Manter calorias diárias abaixo de 700"
-                    app:goalSelectable_duration="30"
-                    app:goalSelectable_date="30/10/2023"
-                    app:goalSelectable_coins="30" />
-            <View android:layout_width="match_parent" android:layout_height="16dp" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
+            app:layout_constraintTop_toBottomOf="@+id/goalChangeModal_buttonClose" />
 </androidx.constraintlayout.widget.ConstraintLayout>

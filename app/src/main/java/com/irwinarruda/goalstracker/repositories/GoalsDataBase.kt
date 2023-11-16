@@ -30,6 +30,12 @@ class GoalsDataBase(context: Context) :
         const val STATE = "state"
     }
 
+    object USERS {
+        const val TABLE_NAME = "users"
+        const val ID = "id"
+        const val COINS = "coins"
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
             """
@@ -54,11 +60,25 @@ class GoalsDataBase(context: Context) :
             ); 
             """.trimIndent()
         )
+        db.execSQL(
+            """
+            CREATE TABLE ${USERS.TABLE_NAME} (
+                ${USERS.ID} integer primary key autoincrement,
+                ${USERS.COINS} integer not null default 0
+            ); 
+            """.trimIndent()
+        )
+        db.execSQL(
+            """
+            INSERT INTO ${USERS.TABLE_NAME} (${USERS.COINS}) VALUES (0); 
+            """.trimIndent()
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS ${GOALS.TABLE_NAME};")
         db.execSQL("DROP TABLE IF EXISTS ${DAYS.TABLE_NAME};")
+        db.execSQL("DROP TABLE IF EXISTS ${USERS.TABLE_NAME};")
         onCreate(db)
     }
 }
