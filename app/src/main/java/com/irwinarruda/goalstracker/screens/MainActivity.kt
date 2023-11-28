@@ -24,25 +24,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.tabPanel!!.adapter = TabAdapter(this)
+        binding.tabPanel.adapter = TabAdapter(this)
         TabAdapter.createLayoutMediator(this, binding.tabs!!, binding.tabPanel!!)
-        binding.appbar!!.setOnClickCoins { onClickCoins() }
+        binding.appbar.setOnClickCoins { onClickCoins() }
         appCtrl = ViewModelProvider(this)[AppCtrl::class.java]
         appCtrl.start()
         createObservables()
     }
 
     fun updateCoinsButton(goal: Goal?, userCoins: Int) {
-        binding.appbar!!.setCoins(userCoins)
+        binding.appbar.setCoins(userCoins)
         if (goal == null) {
-            binding.appbar!!.setCoinsClickale(false)
+            binding.appbar.setCoinsClickale(false)
             return
         }
         val day = goal.days.find { day -> day.date.isEqual(LocalDate.now()) }
         if (day != null && day.state == DayState.PENDING) {
-            binding.appbar!!.setCoinsClickale(goal.coins != null && goal.coins!! <= userCoins)
+            binding.appbar.setCoinsClickale(goal.coins != null && goal.coins!! <= userCoins)
         } else {
-            binding.appbar!!.setCoinsClickale(false)
+            binding.appbar.setCoinsClickale(false)
         }
     }
 
